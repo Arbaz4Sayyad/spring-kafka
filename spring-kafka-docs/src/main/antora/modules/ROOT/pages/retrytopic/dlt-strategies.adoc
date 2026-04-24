@@ -62,6 +62,11 @@ When using the `@RetryableTopic` annotation, set the `autoStartDltHandler` prope
 
 You can later start the DLT handler via the `KafkaListenerEndpointRegistry`.
 
+IMPORTANT: The `autoStartDltHandler` property can be overridden by the `KafkaListenerEndpointRegistry.alwaysStartAfterRefresh` setting (default: `true`).
+When the context is refreshed, containers are started immediately regardless of their `autoStartup` property if `alwaysStartAfterRefresh` is true.
+In test scenarios where you want to respect the `autoStartDltHandler` setting, you should configure the registry's `alwaysStartAfterRefresh` property to `false`.
+This also applies to `@KafkaListener(autoStartup = "false")` in tests.
+
 [[dlt-failure-behavior]]
 == DLT Failure Behavior
 

@@ -178,8 +178,17 @@ public class KafkaListenerEndpointRegistry implements ListenerContainerRegistry,
 	 * context initialization. Set to false to apply the autoStartup property, even for
 	 * late endpoint binding. If this is called after the context is refreshed, it will
 	 * apply to any endpoints registered after that call.
+	 * <p>
+	 * <b>Note:</b> This setting affects containers configured with
+	 * {@link org.springframework.kafka.annotation.KafkaListener#autoStartup()} and
+	 * {@link org.springframework.kafka.annotation.RetryableTopic#autoStartDltHandler()}.
+	 * When this is true (default), containers are started immediately after context refresh
+	 * regardless of their individual autoStartup settings. Set to false to respect the
+	 * autoStartup property for each container.
 	 * @param alwaysStartAfterRefresh false to apply the property.
 	 * @since 2.8.7
+	 * @see org.springframework.kafka.annotation.KafkaListener#autoStartup()
+	 * @see org.springframework.kafka.annotation.RetryableTopic#autoStartDltHandler()
 	 */
 	public void setAlwaysStartAfterRefresh(boolean alwaysStartAfterRefresh) {
 		this.alwaysStartAfterRefresh = alwaysStartAfterRefresh;
