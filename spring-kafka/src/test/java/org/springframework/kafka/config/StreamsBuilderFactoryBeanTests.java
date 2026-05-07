@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 import org.apache.kafka.streams.GroupProtocol;
@@ -184,6 +185,16 @@ public class StreamsBuilderFactoryBeanTests {
 					.count(Materialized.as("store"));
 
 		}
+	}
+
+	@Test
+	public void testGetStreamsConfigurationWithNullProperties() {
+		StreamsBuilderFactoryBean factoryBean = new StreamsBuilderFactoryBean();
+		factoryBean.setAutoStartup(false);
+		
+		// This should not throw NPE
+		Properties config = factoryBean.getStreamsConfiguration();
+		assertThat(config).isNull();
 	}
 
 }
